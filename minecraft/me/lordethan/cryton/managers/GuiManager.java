@@ -205,7 +205,7 @@ public final class GuiManager extends AbstractGuiManager {
 		testFrame.setTheme(theme);
 		ComboBox comboBox = new BasicComboBox("Simple Theme", "Cryton Theme");
 		comboBox.addComboBoxListener(new ComboBoxListener() {
-
+			EspList = "Player";
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox) {
 				Theme theme = null;
