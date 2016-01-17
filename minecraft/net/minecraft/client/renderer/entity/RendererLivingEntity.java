@@ -1,14 +1,18 @@
 package net.minecraft.client.renderer.entity;
 
-import com.google.common.collect.Lists;
-
-import me.lordethan.cryton.Cryton;
-import me.lordethan.cryton.module.modules.ChestEsp;
-import me.lordethan.cryton.module.modules.OutlineEsp;
-
 import java.nio.FloatBuffer;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL11;
+
+import com.google.common.collect.Lists;
+
+import me.lordethan.cryton.Cryton;
+import me.lordethan.cryton.managers.GuiManager;
+import me.lordethan.cryton.module.modules.OutlineEsp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -22,16 +26,14 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.GL11;
 
 public abstract class RendererLivingEntity extends Render
 {
@@ -277,28 +279,92 @@ public abstract class RendererLivingEntity extends Render
             }
 
             if(Cryton.theClient.moduleManager.getModule(OutlineEsp.class).getState()){
-            	GL11.glPushMatrix();
-            	{
-            		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
-            		{
-            			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-            			GL11.glDisable(GL11.GL_TEXTURE_2D);
-            			GL11.glDisable(GL11.GL_LIGHTING);
-            			GL11.glDisable(GL11.GL_DEPTH_TEST);
-            			
-            			GL11.glEnable(GL11.GL_LINE_SMOOTH);
-            			
-            			GL11.glEnable(GL11.GL_BLEND);
-            			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_CONSTANT_ALPHA);
-            			
-            			GL11.glLineWidth(4f);
-            			GL11.glColor3f(1, 1, 0);
-            			
-            			this.mainModel.render(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+            	if(GuiManager.EspList == "Player"){
+            		if(p_77036_1_ instanceof EntityPlayer){
+            			GL11.glPushMatrix();
+                        {
+                        	GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+                        	{
+                        		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+                        		GL11.glDisable(GL11.GL_TEXTURE_2D);
+                        		GL11.glDisable(GL11.GL_LIGHTING);
+                        		GL11.glDisable(GL11.GL_DEPTH_TEST);
+                        		
+                        		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+                        		
+                        		GL11.glEnable(GL11.GL_BLEND);
+                        		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_CONSTANT_ALPHA);
+                        		
+                        		
+                        		GL11.glLineWidth(6F);
+       						GL11.glColor3f(1, 1, 0);
+                        		
+                        		this.mainModel.render(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+                        	}
+                        	GL11.glPopAttrib();
+                        }
+                        GL11.glPopMatrix();
             		}
-            		GL11.glPopAttrib();
             	}
-            	GL11.glPopMatrix();
+            	
+            	if(GuiManager.EspList == "Mob"){
+            		if(p_77036_1_ instanceof EntityMob ){
+            			GL11.glPushMatrix();
+                        {
+                        	GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+                        	{
+                        		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+                        		GL11.glDisable(GL11.GL_TEXTURE_2D);
+                        		GL11.glDisable(GL11.GL_LIGHTING);
+                        		GL11.glDisable(GL11.GL_DEPTH_TEST);
+                        		
+                        		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+                        		
+                        		GL11.glEnable(GL11.GL_BLEND);
+                        		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_CONSTANT_ALPHA);
+                        		
+                        		
+                        		GL11.glLineWidth(6F);
+       						GL11.glColor3f(1, 0, 0);
+                        		
+                        		this.mainModel.render(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+                        	}
+                        	GL11.glPopAttrib();
+                        }
+                        GL11.glPopMatrix();
+            		}
+            	}
+            	
+            	if(GuiManager.EspList == "Animals"){
+            		if(p_77036_1_ instanceof EntityAnimal ){
+            			GL11.glPushMatrix();
+                        {
+                        	GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+                        	{
+                        		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+                        		GL11.glDisable(GL11.GL_TEXTURE_2D);
+                        		GL11.glDisable(GL11.GL_LIGHTING);
+                        		GL11.glDisable(GL11.GL_DEPTH_TEST);
+                        		
+                        		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+                        		
+                        		GL11.glEnable(GL11.GL_BLEND);
+                        		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_CONSTANT_ALPHA);
+                        		
+                        		
+                        		GL11.glLineWidth(6F);
+       						GL11.glColor3f(0, 1, 0);
+                        		
+                        		this.mainModel.render(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+                        	}
+                        	GL11.glPopAttrib();
+                        }
+                        GL11.glPopMatrix();
+            		}
+        		}
+            	 
+        
+            
             }
             this.mainModel.render(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
 
