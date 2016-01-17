@@ -29,6 +29,7 @@ public class Cryton {
 			guiManager = new GuiManager();
 			guiManager.setTheme(new SimpleTheme());
 			guiManager.setup();
+			guiManager.update();
 		}
 		return guiManager;
 	}

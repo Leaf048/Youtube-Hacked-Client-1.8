@@ -34,6 +34,7 @@ public class GuiIngameHook{
 		Wrapper.fu_default.drawString(Cryton.getClient_Name() + " Version:" + Cryton.getClient_Vesion(), 1, 1, 0xffffffff);
 		renderArrayList();
 		Cryton.theClient.getGuiManager().renderPinned();
+		Cryton.theClient.getGuiManager().update();
 	}
 	
 	private static void renderArrayList(){
@@ -42,7 +43,7 @@ public class GuiIngameHook{
 			m.onRender();
 			
 			if(m.getState() && !m.isCategory(Category.GUI)){
-				Wrapper.fu_default.drawString(m.getName(), 5, yCount, 0x00ff7f);
+				Wrapper.fu_default.drawString(m.getName(), 5, yCount, m.getColor());
 				yCount +=10;
 			}
 		}

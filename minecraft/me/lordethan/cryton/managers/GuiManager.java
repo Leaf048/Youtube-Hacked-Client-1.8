@@ -33,6 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import me.lordethan.cryton.module.Category;
 import me.lordethan.cryton.module.Module;
 import me.lordethan.cryton.module.ModuleManager;
+import me.lordethan.cryton.values.Value;
 import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.AbstractGuiManager;
@@ -53,6 +54,7 @@ import org.darkstorm.minecraft.gui.layout.GridLayoutManager;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstraint;
 import org.darkstorm.minecraft.gui.listener.ButtonListener;
 import org.darkstorm.minecraft.gui.listener.ComboBoxListener;
+import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
 import org.darkstorm.minecraft.gui.theme.simple.SimpleTheme;
 
@@ -87,6 +89,7 @@ public final class GuiManager extends AbstractGuiManager {
 			return;
 		
 		createTestFrame();
+		createValuesFrame();
 
 		final Map<Category, ModuleFrame> categoryFrames = new HashMap<Category, ModuleFrame>();
 		for (Module module : ModuleManager.getModules()) {
@@ -148,6 +151,49 @@ public final class GuiManager extends AbstractGuiManager {
 				offsetY += maxSize.height + 5;
 			}
 		}
+	}
+	
+	private void createValuesFrame(){
+		Theme theme = getTheme();
+		final Frame valuesFrame = new BasicFrame("Value Manager");
+		valuesFrame.setTheme(theme);
+		valuesFrame.setX(50);
+		valuesFrame.setY(50);
+		Dimension defaultDimension = theme.getUIForComponent(valuesFrame).getDefaultSize(valuesFrame);
+		valuesFrame.setWidth(defaultDimension.width);
+		valuesFrame.setHeight(defaultDimension.height);
+		valuesFrame.layoutChildren();
+		valuesFrame.setVisible(true);
+		valuesFrame.setClosable(false);
+		valuesFrame.setMinimized(true);
+
+		for (final Value v : Value.getVals()) {
+			if (v.getValueDisplay() == null)
+				continue;
+
+			Slider slider = new BasicSlider(v.getName());
+			slider.setValueDisplay(v.getValueDisplay());
+			slider.setValue((double) v.getValue());
+			slider.setMaximumValue((double) v.getMax());
+			slider.setMinimumValue((double) v.getMin());
+			slider.setIncrement(1F);
+			slider.setEnabled(true);
+			slider.addSliderListener(new SliderListener() {
+
+				@Override
+				public void onSliderValueChanged(Slider slider) {
+
+					v.setValue(slider.getValue());
+				}
+			});
+			//valuesFrame.update();
+			//slider.update();
+			
+
+			valuesFrame.add(slider);
+		}
+		
+		addFrame(valuesFrame);
 	}
 	
 	private void createTestFrame() {

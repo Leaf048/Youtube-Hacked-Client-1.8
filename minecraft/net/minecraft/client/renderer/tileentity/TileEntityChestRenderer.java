@@ -1,6 +1,11 @@
 package net.minecraft.client.renderer.tileentity;
 
 import java.util.Calendar;
+
+import org.lwjgl.opengl.GL11;
+
+import me.lordethan.cryton.Cryton;
+import me.lordethan.cryton.module.modules.ChestEsp;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.client.model.ModelChest;
@@ -200,5 +205,30 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer
     public void renderTileEntityAt(TileEntity p_180535_1_, double p_180535_2_, double p_180535_4_, double p_180535_6_, float p_180535_8_, int p_180535_9_)
     {
         this.func_180538_a((TileEntityChest)p_180535_1_, p_180535_2_, p_180535_4_, p_180535_6_, p_180535_8_, p_180535_9_);
+        
+        if(Cryton.theClient.moduleManager.getModule(ChestEsp.class).getState()){
+        	GL11.glPushMatrix();
+        	{
+        		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+        		{
+        			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+        			GL11.glDisable(GL11.GL_TEXTURE_2D);
+        			GL11.glDisable(GL11.GL_LIGHTING);
+        			GL11.glDisable(GL11.GL_DEPTH_TEST);
+        			
+        			GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        			
+        			GL11.glEnable(GL11.GL_BLEND);
+        			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_CONSTANT_ALPHA);
+        			
+        			GL11.glLineWidth(6f);
+        			GL11.glColor3f(1, 0, 0);
+        			
+        			this.func_180538_a((TileEntityChest)p_180535_1_, p_180535_2_, p_180535_4_, p_180535_6_, p_180535_8_, p_180535_9_);
+        		}
+        		GL11.glPopAttrib();
+        	}
+        	GL11.glPopMatrix();
+        }
     }
 }
