@@ -6,8 +6,9 @@ MCP:
 API/SRC:
 
 Opifine SRC
-[Mirror 1](https://mega.co.nz/#!WIQnTbKJ!uXk-yzgV3ekICNgBzN99nkjPMw-KqKw4mmkpt4hTMlc)
-[Mirror 1](https://mega.co.nz/#!WIQnTbKJ!uXk-yzgV3ekICNgBzN99nkjPMw-KqKw4mmkpt4hTMlc)
+[Mirror 1](http://adf.ly/5260216/optifine-src-mirror-1)
+[Mirror 2](http://adf.ly/5260216/optifine-src-mirror-2)
+[Mirror 3](http://adf.ly/5260216/optifine-src-mirror-3)
 
 [DarkStrom Gui API](https://github.com/DarkStorm652/Minecraft-GUI-API)
 
