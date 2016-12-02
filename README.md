@@ -10,6 +10,6 @@ Opifine SRC
 [Mirror 2](http://adf.ly/5260216/optifine-src-mirror-2)
 [Mirror 3](http://adf.ly/5260216/optifine-src-mirror-3)
 
-[DarkStrom Gui API](https://github.com/DarkStorm652/Minecraft-GUI-API)
+[DarkStorm Gui API](https://github.com/DarkStorm652/Minecraft-GUI-API)
 
 [Slick API](http://slick.ninjacave.com/)
