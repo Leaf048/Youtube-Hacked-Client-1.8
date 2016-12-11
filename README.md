@@ -1,4 +1,4 @@
-# Youtube-Hacked-Client-1.8
+# Youtube-Hacked-Client-1.8 (Discontinued)
 
 MCP:
 [MCP](http://www.modcoderpack.com/website/releases)
